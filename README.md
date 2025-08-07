@@ -26,4 +26,4 @@ Die App bietet drei Bereiche und eine zusätzliche Trainingsansicht:
 - **Workout**: Übungen auswählen und Zeiten festlegen. Nach dem Start erscheint automatisch die Seite **Training**.
 - **Add Workout**: Neue Übungen zur CSV-Datenbank hinzufügen.
 - **Database**: Gesamte Datenbank anzeigen.
-- **Training**: Wird nur angezeigt, wenn ein Trainingsplan aktiv ist und führt durch die Übungen.
+- **Training**: Wird nur angezeigt, wenn ein Trainingsplan aktiv ist, zeigt passende GIFs/Videos, zählt Gesamt- und Übungszeit herunter, bietet eine Pause-Funktion und gibt akustische Hinweise für die nächste Übung sowie das Trainingsende.

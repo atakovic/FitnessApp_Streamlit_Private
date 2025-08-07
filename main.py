@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from data import load_db
+import time
 
 
 def workout_page():
@@ -35,5 +36,12 @@ def workout_page():
             plan = pd.concat([plan, available.sample(count - len(plan), replace=True)], ignore_index=True)
         st.session_state["plan"] = plan[["Übung", "Körperpartie", "Beschreibung"]]
         st.session_state["current_idx"] = 0
+        st.session_state["exercise_sec"] = int(exercise_sec)
+        st.session_state["pause_sec"] = int(pause_sec)
+        st.session_state["total_remaining"] = int(total_sec)
+        st.session_state["phase"] = "exercise"
+        st.session_state["phase_remaining"] = int(exercise_sec)
+        st.session_state["paused"] = False
+        st.session_state["last_tick"] = time.time()
         st.session_state["page"] = "Training"
         st.rerun()
