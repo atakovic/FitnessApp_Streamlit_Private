@@ -14,11 +14,11 @@ def training_page():
         st.write(row['Beschreibung'])
         if st.button("Nächste Übung"):
             st.session_state["current_idx"] = idx + 1
-            st.experimental_rerun()
+            st.rerun()
     else:
         st.success("Workout abgeschlossen")
         if st.button("Plan zurücksetzen"):
             st.session_state.pop("plan")
             st.session_state["current_idx"] = 0
             st.session_state["page"] = "Workout"
-            st.experimental_rerun()
+            st.rerun()

@@ -36,4 +36,4 @@ def workout_page():
         st.session_state["plan"] = plan[["Übung", "Körperpartie", "Beschreibung"]]
         st.session_state["current_idx"] = 0
         st.session_state["page"] = "Training"
-        st.experimental_rerun()
+        st.rerun()
