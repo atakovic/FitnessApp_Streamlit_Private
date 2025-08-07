@@ -14,8 +14,9 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Die App bietet drei Bereiche:
+Die App bietet drei Bereiche und eine zusätzliche Trainingsansicht:
 
-- **Workout**: Training planen und der Reihenfolge nach anzeigen.
+- **Workout**: Übungen auswählen und Zeiten festlegen. Nach dem Start erscheint automatisch die Seite **Training**.
 - **Add Workout**: Neue Übungen zur CSV-Datenbank hinzufügen.
 - **Database**: Gesamte Datenbank anzeigen.
+- **Training**: Wird nur angezeigt, wenn ein Trainingsplan aktiv ist und führt durch die Übungen.

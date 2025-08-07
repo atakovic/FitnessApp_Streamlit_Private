@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import random
 from pathlib import Path
 
 DB_PATH = Path(__file__).parent / "DB.csv"
@@ -26,7 +25,7 @@ def workout_page():
     exercise_sec = st.number_input("Übungszeit (Sekunden)", min_value=0, value=30, step=5)
     pause_sec = st.number_input("Pausenzeit (Sekunden)", min_value=0, value=15, step=5)
 
-    if st.button("Plan erstellen"):
+    if st.button("Training starten"):
         muscles = selected_ok + selected_uk
         if not muscles:
             st.warning("Bitte wähle mindestens eine Muskelgruppe aus.")
@@ -44,22 +43,30 @@ def workout_page():
             plan = pd.concat([plan, available.sample(count - len(plan), replace=True)], ignore_index=True)
         st.session_state['plan'] = plan[['Übung', 'Körperpartie', 'Beschreibung']]
         st.session_state['current_idx'] = 0
-        st.success("Plan erstellt")
+        st.session_state['page'] = 'Training'
+        st.experimental_rerun()
 
-    if 'plan' in st.session_state:
-        plan = st.session_state['plan']
-        idx = st.session_state.get('current_idx', 0)
-        if idx < len(plan):
-            row = plan.iloc[idx]
-            st.subheader(f"{row['Übung']}")
-            st.write(row['Beschreibung'])
-            if st.button("Nächste Übung"):
-                st.session_state['current_idx'] = idx + 1
-        else:
-            st.success("Workout abgeschlossen")
-            if st.button("Plan zurücksetzen"):
-                st.session_state.pop('plan')
-                st.session_state['current_idx'] = 0
+def training_page():
+    st.header("Training")
+    if 'plan' not in st.session_state:
+        st.warning("Kein Trainingsplan vorhanden.")
+        return
+    plan = st.session_state['plan']
+    idx = st.session_state.get('current_idx', 0)
+    if idx < len(plan):
+        row = plan.iloc[idx]
+        st.subheader(f"{row['Übung']}")
+        st.write(row['Beschreibung'])
+        if st.button("Nächste Übung"):
+            st.session_state['current_idx'] = idx + 1
+            st.experimental_rerun()
+    else:
+        st.success("Workout abgeschlossen")
+        if st.button("Plan zurücksetzen"):
+            st.session_state.pop('plan')
+            st.session_state['current_idx'] = 0
+            st.session_state['page'] = 'Workout'
+            st.experimental_rerun()
 
 def add_workout_page():
     st.header("Workout hinzufügen")
@@ -91,6 +98,9 @@ pages = {
     "Database": database_page,
 }
 
+if 'plan' in st.session_state:
+    pages["Training"] = training_page
+
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Seite", list(pages.keys()))
+page = st.sidebar.radio("Seite", list(pages.keys()), key="page")
 pages[page]()
