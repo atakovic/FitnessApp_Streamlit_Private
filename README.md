@@ -1,6 +1,6 @@
 # Fitness App Streamlit
 
-Diese Version der Fitness-App wurde auf Python und [Streamlit](https://streamlit.io/) umgestellt.
+Diese Version der Fitness-App wurde auf Python und [Streamlit](https://streamlit.io/) umgestellt und startet automatisch im Wide-Layout.
 
 ## Installation
 
@@ -13,6 +13,13 @@ pip install -r requirements.txt
 ```bash
 streamlit run app.py
 ```
+
+`app.py` stellt die Navigation bereit und bindet die Einzelseiten ein:
+
+- `main.py` – Auswahl der Übungen und Zeiten
+- `add.py` – neue Workouts in die CSV-Datenbank einfügen
+- `database.py` – Anzeige der Datenbank
+- `training.py` – Ablauf des Trainings (erscheint erst nach dem Start)
 
 Die App bietet drei Bereiche und eine zusätzliche Trainingsansicht:
 
